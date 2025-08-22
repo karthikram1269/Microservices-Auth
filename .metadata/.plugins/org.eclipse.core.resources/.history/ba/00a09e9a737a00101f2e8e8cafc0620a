@@ -1,0 +1,42 @@
+package com.userapp.controllers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.userapp.entities.User;
+import com.userapp.services.UserService;
+
+@WebMvcTest
+class UserControllerTest {
+
+	@Autowired // fake http request
+	private MockMvc mockmvc;
+
+	@MockitoBean // fake object for UserService
+	private UserService userService;
+
+	@Test
+	void addUserTest() {
+		User user = new User(1L,"Karthik Ram","karthik@gmail.com");
+		
+		Mockito.when(userService.save(Mockito.any())).thenReturn(user);
+		
+		mockmvc.perform(
+				post("/addNewUser")
+				.contentType("application/json")
+				.content("""
+						{
+						"name":"Karthik Ram",
+						"email":"gk@gmail.com"
+						}"""))
+				.andExpect(status().isOk())
+				.andExpect(jsonpath("$.name").value("Karthik Ram"));
+				
+	}
+}

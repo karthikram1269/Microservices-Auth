@@ -1,0 +1,46 @@
+package com.userapp.services;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.userapp.entities.User;
+import com.userapp.repository.UserRepository;
+
+@ExtendWith(MockitoExtension.class)
+class UserServiceTest {
+
+	@Mock
+	private UserRepository userRepository;
+
+	@InjectMocks
+	private UserServiceImpl userServiceImpl;
+	
+	
+	@DisplayName(" we were testing saveUser method")
+	@Test 
+	void saveUserTest() {
+
+		User user = new User(null,"Mahesh","mr@gmail.com");
+		User saveUser = new User(null,"Sunil","sl@gmail.com");
+		
+		Mockito.when(userRepository.save(user)).thenReturn(saveUser);
+		
+		User finalResult = userServiceImpl.save(saveUser);
+		
+		Assertions.assertEquals(72L, finalResult.getId());
+	       // condtion 1
+	       Assertions.assertEquals("RamaKrishna", finalResult.getName());
+	       // condtion 1
+	       Assertions.assertEquals("RamaKrishna@gmail.com", finalResult.getEmail());
+		
+	}
+	
+	
+
+}
