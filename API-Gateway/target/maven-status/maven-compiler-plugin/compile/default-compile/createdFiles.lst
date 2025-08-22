@@ -1,0 +1,8 @@
+com\wipro\siri\entities\Quiz.class
+com\wipro\siri\service\QuizService.class
+com\wipro\siri\repos\QuizRepository.class
+com\wipro\siri\QuizsServiceApplication.class
+com\wipro\siri\feign\QuizInterface.class
+com\wipro\siri\controller\QuizController.class
+com\wipro\siri\entities\QuestionWrapper.class
+com\wipro\siri\entities\Response.class
